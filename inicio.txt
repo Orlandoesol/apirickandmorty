@@ -1,0 +1,82 @@
+/* import logo from './logo.svg';
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+        <h2>Bienvenido a React</h2>
+      </header>
+    </div>
+  );
+}
+
+export default App; */
+/* import React from "react";
+
+const Saludar = () => {
+  return <h1> Hola Mundo React </h1>
+;}
+
+
+export default Saludar;
+ */
+
+import React, {Component} from "react";
+
+class Contador extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      contador: 0
+    };
+  }
+
+  incrementar = () => {
+    this.setState({contador: this.state.contador + 1});
+  };
+
+  decrementar = () => {
+    this.setState({contador: this.state.contador - 1});
+  };
+
+  render () {
+    return (
+      <div>
+        <p>Contador: {this.state.contador}</p>
+        <button onClick={this.incrementar}>+</button>
+        <button onClick={this.decrementar}>-</button>
+      </div>
+    );
+  }
+  }
+
+export default Contador; 
+
+/src
+  /components
+    /examples
+      - welcome.js          // Componente Funcional vs Componente de Clase
+      - jsxExample.js       // Ejemplo de JSX
+      - propsExample.js     // Ejemplo de Props
+      - stateExample.js     // Ejemplo de State
+      - eventExample.js     // Ejemplo de Eventos
+      - useEffectExample.js // Ejemplo de useEffect
+      - conditionalExample.js // Ejemplo de Condicionales
+      - listExample.js      // Ejemplo de Listas y Keys
+      - contextExample.js   // Ejemplo de Context
+      - routerExample.js    // Ejemplo de React Router
+  - App.js
