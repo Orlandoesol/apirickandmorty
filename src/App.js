@@ -33,23 +33,28 @@ function App() {
 }
 
 export default App; */
+import React, { useState } from "react";
 import imageRickMorty from "./img/rick-morty.png"
-
 import "./App.css"
-import { useState } from "react";
-import Characters from "./components/characters";
+import Characters from "./components/characters.jsx";
 
 
 function App(){
 
   const[characters, setCharacters] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);//Pagina inicial
+  const [totalPages, setTotalPages] = useState(1);//Total paginas disponibles
 
-  const reqApi = async () => {
-    const api = await fetch('https://rickandmortyapi.com/api/character?page=5');
-
+  const reqApi = async (page = 1) => {
+    const api = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`);
     const characterApi = await api.json();
     setCharacters(characterApi.results);
+    setTotalPages(characterApi.info.pages);//Da total de paginas disponibles
   };
+
+  React.useEffect(() => {
+    reqApi(currentPage);
+  }, [currentPage]);// Carga los personajes por pagina
 
   return (
     <div className="App">
@@ -57,14 +62,21 @@ function App(){
         <h1 className="title" >Rick and Morty</h1>
         { characters ? 
         (
-          <Characters characters={characters} setCharacters={setCharacters}/>
+          <Characters 
+          characters={characters} 
+          setCharacters={setCharacters}
+          currentPage ={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+          />
         ) : (
           <>
           <img src={imageRickMorty} alt="Rick & Morty" className="img-home"/>
-          <button onClick={reqApi} className="btn-search">Cargar Personajes</button>
+          <button onClick={() => reqApi(currentPage)} className="btn-search">
+            Cargar Personajes
+            </button>
           </>
-        )
-      }
+        )}
       </header>
     </div>
   )
