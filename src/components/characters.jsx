@@ -1,19 +1,31 @@
 import React from "react";
 
 export default function Characters(props) {
-    const { characters, setCharacters } = props;
+    const { characters, setCharacters, currentPage, setCurrentPage, totalPages } = props;
 
     const resetCharacters = () => {
         setCharacters(null);
+        setCurrentPage(1);
     };
 
-    console.log(characters);
+    //console.log(characters);
+    const nextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const prevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
 
     return (
             <div className="characters">
                 <h1>Personajes</h1>
                 <span className="back-home" onClick={resetCharacters}>
-                    Ir a Home
+                    Salir
                 </span>
                 <div className="characters-container">
                     {characters.map((character, index) => (
@@ -47,10 +59,19 @@ export default function Characters(props) {
                             </div>
                             </div>
                         ))}
-            </div>
-            <span className="back-home" onClick={resetCharacters}>
-                Volver al home
-            </span>
+                        <div className="pagination">
+                            <button onClick={prevPage} disabled={currentPage === 1}>
+                                Anterior
+                            </button>
+                            <span>Pagina {currentPage}</span>
+                            <button onClick={nextPage} disabled={currentPage === totalPages}>
+                                Siguiente
+                            </button>   
+                        </div>
+                        <span className="back-home" onClick={resetCharacters}>
+                        Volver al home
+                        </span>
+                    </div>
             </div>
     );
 }
